@@ -8,6 +8,10 @@
 
 信息时代的学习之路很自然地起始于互联网。然，陷于相关知识的匮乏，粗见浅识、张冠李戴，鉴于参差不齐的网文，只言片语、虎头蛇尾，也就造就了这篇参差不齐的技术指导，还请各位看客挑挑捡捡，随便看看。
 
+### 写在不太前面
+
+本文中包含有些许 Mathjax 公式，由于 Github 官方不支持此类公式渲染，公式显示略显凌乱，幸于 Github 网友用爱发电，针于 Chrome 和 Firefox 浏览器，分别安装 [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)（[Github 仓库](https://github.com/orsharir/github-mathjax)） 和 [github-mathjax-firefox](https://github.com/traversaro/github-mathjax-firefox/releases/download/v0.2.3/github_with_mathjax-0.2.3.xpi)（[Github 仓库](https://github.com/traversaro/github-mathjax-firefox)）即可查看完美显示的公式了。
+
 ### 了不起的滤波器
 
 之所以了不起，是因为信号处理涉及的领域太广了，而滤波几乎又是信号处理的第一需求。滤波器主要有模拟滤波器和数字滤波器之分，前者用于电子电路设计，后者用于数字信号处理。数字滤波器又可以分为 FIR（Finite impulse response，有限脉冲响应）滤波器和 IIR（Infinite impulse response，无限脉冲响应）滤波器。
@@ -100,7 +104,7 @@ $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \fra
 
 在编译完成后，我们可以通过 [IIR 目录](IIR/)下的 Python 脚本调用这些可执行文件进行滤波。
 
-#####简单的低通滤波
+##### 简单的低通滤波
 
 在 [sigproc 的 Butterworth 低通滤波应用示例](IIR/sigproc_bwlpf.py)中，原始波形由频率为 2 Hz 和 10 Hz 的正弦波叠加合成，_sigproc/bwlpf_ 是以 6 Hz 为截止频率调用 sigproc 中低通滤波程序采用四阶 Butterworth 滤波得到的滤波结果，_filtfilt_ 是调用 python/scipy.signal 模块的双向数字滤波函数 filtfilt 得到的滤波结果，_lfilter_ 是调用该模块的单向滤波函数 lfilter 得到的滤波结果：
 
@@ -108,7 +112,7 @@ $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \fra
 
 从上图中可以看到，简单的 Butterworth（或者 IIR）滤波会导致波形的相位发生移动，而 filtfilt 函数则采用了稍复杂的双向滤波算法得到了零相移的滤波结果。
 
-#####神奇的零相位滤波
+##### 神奇的零相位滤波
 
 在 [o4zpsbwlpf 四阶零相移 Butterworth 低通滤波示例](IIR/o4zpsbwlpf.py)中，原始波形由频率为 2 Hz 和 10 Hz 的正弦波叠加合成，_o4zpsbwlpf_ 是以 6 Hz 为截止频率调用 o4zpsbwlpf 四阶零相移 Butterworth 低通滤波程序得到的滤波结果：
 
@@ -116,7 +120,7 @@ $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \fra
 
 上图中，与简单的 Butterworth 滤波（lfilter 函数）相比，o4zpsbwlpf 零相移的滤波结果得到大幅改善。
 
-#####双向滤波的尝试
+##### 双向滤波的尝试
 
 基于双向滤波的原理，在[双向低通滤波示例](IIR/bidirection.py)中，原始波形由频率为 2 Hz 和 10 Hz 的正弦波叠加合成，_bidirection_ 是以 6 Hz 为截止频率采用 lfilter 函数构造的简单双向滤波处理得到的滤波结果：
 
