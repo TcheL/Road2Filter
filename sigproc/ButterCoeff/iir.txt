@@ -1,0 +1,264 @@
+IIR Digital Filter Functions
+============================
+
+An IIR filter is also known as a recursive digital filter because its output
+is a function of previous outputs as well as the input. If x[n] represents the
+nth input to the filter and y[n] is the nth output of the filter then a
+general iir filter is implemented as follows:
+
+y[n] = c0*x[n] + c1*x[n-1] + ... + cM*x[n-M] - ( d1*y[n-1] + d2*y[n-2] + ... + dN*y[n-N])
+
+This means that the nth output is a linear function of the nth input, the
+previous M inputs, and the previous N outputs. The c and d coefficients are
+calculated to give the filter a specific frequency response. The number of
+coefficients, M and N, will vary depending on the type of filter. There are
+many different kinds of iir filters and many different ways to calculate the
+coefficients. Listed below are filter types (currently only Butterworth
+filters) and the functions that can be used to calculate the c and d
+coefficients for lowpass, highpass, bandpass, and bandstop implementations of
+the filter.
+
+I. Butterworth Filters
+   -------------------
+
+    A Butterworth filter is also known as a maximally flat filter because its
+    frequency response is characterized by no ripple in the pass band and stop
+    band.
+
+  A. Lowpass functions
+
+     The example program that shows how to use all the lowpass functions is
+     bwlp.
+
+     double *dcof_bwlp( int N, double fcf );
+
+         This fuction calculates the d coefficients for a Butterworth lowpass
+         filter. The coefficients are returned as an array of doubles.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             fcf = filter cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A pointer to an array of doubles is returned. The size of the
+             array is equal to N+1, one more than the filter order. The first
+             element of the array is d0, the coefficient of y[n], which will
+             always be equal to 1. The second element of the array is d1, the
+             coefficient of y[n-1], and so on. The calling program must free
+             the array when finished with it.
+
+
+     int *ccof_bwlp( int n );
+
+         This fuction calculates the c coefficients for a Butterworth lowpass
+         filter. The coefficients are returned as an array of integers.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+
+         Return value:
+             A pointer to an array of integers is returned. The size of the
+             array is equal to N+1, one more than the filter order. The first
+             element of the array is c0, the coefficient of x[n], which is the
+             current input to the filter. The second element of the array is
+             c1, the coefficient of x[n-1], and so on. The calling program
+             must free the array when finished with it.
+
+
+     double sf_bwlp( int n, double fcf );
+
+         This fuction calculates the scaling factor for a Butterworth lowpass
+         filter. The scaling factor is what the c coefficients must be
+         multiplied by so that the frequency response of the filter has a
+         maximum magnitude of 1.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             fcf = filter cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A double that is scaling factor.
+
+  B. Highpass functions
+
+     The example program that shows how to use all the highpass functions is
+     bwhp.
+
+     double *dcof_bwhp( int N, double fcf );
+
+         This fuction calculates the d coefficients for a Butterworth highpass
+         filter. The coefficients are returned as an array of doubles.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             fcf = filter cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A pointer to an array of doubles is returned. The size of the
+             array is equal to N+1, one more than the filter order. The first
+             element of the array is d0, the coefficient of y[n], which will
+             always be equal to 1. The second element of the array is d1, the
+             coefficient of y[n-1], and so on. The calling program must free
+             the array when finished with it.
+
+
+     int *ccof_bwhp( int n );
+
+         This fuction calculates the c coefficients for a Butterworth highpass
+         filter. The coefficients are returned as an array of integers.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+
+         Return value:
+             A pointer to an array of integers is returned. The size of the
+             array is equal to N+1, one more than the filter order. The first
+             element of the array is c0, the coefficient of x[n], which is the
+             current input to the filter. The second element of the array is
+             c1, the coefficient of x[n-1], and so on. The calling program
+             must free the array when finished with it.
+
+
+     double sf_bwhp( int n, double fcf );
+
+         This fuction calculates the scaling factor for a Butterworth highpass
+         filter. The scaling factor is what the c coefficients must be
+         multiplied by so that the frequency response of the filter has a
+         maximum magnitude of 1.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             fcf = filter cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A double that is scaling factor.
+
+  C. Bandpass functions
+
+     The example program that shows how to use all the bandpass functions is
+     bwbp.
+
+     double *dcof_bwbp( int n, double f1f, double f2f );
+
+         This fuction calculates the d coefficients for a Butterworth bandpass
+         filter. The coefficients are returned as an array of doubles. Note
+         that, although there is no upper limit on the filter order, if the
+         bandwidth, f2f - f1f, is very small, the coefficients returned may
+         not give the desired response due to numerical instability in the
+         calculation. This problem should not occure if the filter order is
+         kept less that or equal to 10. For very small bandwidths you should
+         always verify the frequency response using a program such as rffr.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             f1f = lower cutoff frequency as a fraction of pi. Range = [0,1].
+             f2f = upper cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A pointer to an array of doubles is returned. The size of the
+             array is equal to 2N+1, one more than twice the filter order. The
+             first element of the array is d0, the coefficient of y[n], which
+             will always be equal to 1. The second element of the array is d1,
+             the coefficient of y[n-1], and so on. The calling program must
+             free the array when finished with it.
+
+
+     int *ccof_bwbp( int n );
+
+         This fuction calculates the c coefficients for a Butterworth bandpass
+         filter. The coefficients are returned as an array of integers.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+
+         Return value:
+             A pointer to an array of integers is returned. The size of the
+             array is equal to 2N+1, one more than twice the filter order. The
+             first element of the array is c0, the coefficient of x[n], which
+             is the current input to the filter. The second element of the
+             array is c1, the coefficient of x[n-1], and so on. The calling
+             program must free the array when finished with it. Note that ck
+             for all odd k, c1, c3, c5, and so on, will be equal to zero for
+             this filter.
+
+
+     double sf_bwbp( int n, double f1f, double f2f );
+
+         This fuction calculates the scaling factor for a Butterworth bandpass
+         filter. The scaling factor is what the c coefficients must be
+         multiplied by so that the frequency response of the filter has a
+         maximum magnitude of 1.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             f1f = lower cutoff frequency as a fraction of pi. Range = [0,1].
+             f2f = upper cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A double that is scaling factor.
+
+  D. Bandstop functions
+
+     The example program that shows how to use all the bandstop functions is
+     bwbs.
+
+     double *dcof_bwbs( int n, double f1f, double f2f );
+
+         This fuction calculates the d coefficients for a Butterworth bandstop
+         filter. The coefficients are returned as an array of doubles. Note
+         that, although there is no upper limit on the filter order, if the
+         bandwidth, f2f - f1f, is very small, the coefficients returned may
+         not give the desired response due to numerical instability in the
+         calculation. This problem should not occure if the filter order is
+         kept less that or equal to 10. For very small bandwidths you should
+         always verify the frequency response using a program such as rffr.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             f1f = lower cutoff frequency as a fraction of pi. Range = [0,1].
+             f2f = upper cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A pointer to an array of doubles is returned. The size of the
+             array is equal to 2N+1, one more than twice the filter order. The
+             first element of the array is d0, the coefficient of y[n], which
+             will always be equal to 1. The second element of the array is d1,
+             the coefficient of y[n-1], and so on. The calling program must
+             free the array when finished with it.
+
+
+     double *ccof_bwbs( int n, double f1f, double f2f );
+
+         This fuction calculates the c coefficients for a Butterworth bandstop
+         filter. The coefficients are returned as an array of doubles.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             f1f = lower cutoff frequency as a fraction of pi. Range = [0,1].
+             f2f = upper cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A pointer to an array of doubles is returned. The size of the
+             array is equal to 2N+1, one more than twice the filter order. The
+             first element of the array is c0, the coefficient of x[n], which
+             is the current input to the filter. The second element of the
+             array is c1, the coefficient of x[n-1], and so on. The calling
+             program must free the array when finished with it. Note that ck
+             for all odd k, c1, c3, c5, and so on, will be equal to zero for
+             this filter.
+
+
+     double sf_bwbs( int n, double f1f, double f2f );
+
+         This fuction calculates the scaling factor for a Butterworth bandstop
+         filter. The scaling factor is what the c coefficients must be
+         multiplied by so that the frequency response of the filter has a
+         maximum magnitude of 1.
+
+         Parameters:
+             N = filter order. Range = [1, 20 or more] no fixed upper limit.
+             f1f = lower cutoff frequency as a fraction of pi. Range = [0,1].
+             f2f = upper cutoff frequency as a fraction of pi. Range = [0,1].
+
+         Return value:
+             A double that is scaling factor.
