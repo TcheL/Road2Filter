@@ -7,7 +7,10 @@ LFLAGS := -lm
 
 .PHONY : Periodic Other Random
 
-all : Periodic Other Random
+all : prepto Periodic Other Random
+
+prepto :
+	mkdir -p $(BINDIR) $(OBJDIR)
 
 Periodic :
 	$(CC) $@/parabolic.c $(CFLAGS) $(LFLAGS) -o $(BINDIR)/parabolic

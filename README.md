@@ -10,7 +10,7 @@
 
 ### 写在不太前面
 
-本文中包含有些许 Mathjax 公式，由于 Github 官方不支持此类公式渲染，公式显示略显凌乱，幸于 Github 网友用爱发电，针于 Chrome 和 Firefox 浏览器，分别安装 [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)（[Github 仓库](https://github.com/orsharir/github-mathjax)） 和 [github-mathjax-firefox](https://github.com/traversaro/github-mathjax-firefox/releases/download/v0.2.3/github_with_mathjax-0.2.3.xpi)（[Github 仓库](https://github.com/traversaro/github-mathjax-firefox)）即可查看完美显示的公式了。
+本文中包含有些许 Mathjax 公式，由于 Github 官方不支持此类公式渲染，公式显示略显凌乱，幸于 Github 网友用爱发电，针于 Chrome 和 Firefox 浏览器，分别安装 [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)（[Github 仓库](https://github.com/orsharir/github-mathjax)） 和 [github-mathjax-firefox](https://github.com/traversaro/github-mathjax-firefox/releases/download/v0.2.3/github_with_mathjax-0.2.3.xpi)（[Github 仓库](https://github.com/traversaro/github-mathjax-firefox)）插件即可查看完美显示的公式了。
 
 ### 了不起的滤波器
 

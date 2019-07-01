@@ -7,7 +7,10 @@ LFLAGS := -lm
 
 .PHONY : ButterCheby ButterCoeff FIRCoeff SpectrAnaly
 
-all : ButterCheby ButterCoeff FIRCoeff SpectrAnaly
+all : prepto ButterCheby ButterCoeff FIRCoeff SpectrAnaly
+
+prepto :
+	mkdir -p $(BINDIR) $(OBJDIR)
 
 ButterCheby :
 	$(CC) $@/bwlpf.c $(CFLAGS) $(LFLAGS) -o $(BINDIR)/bwlpf
