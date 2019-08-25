@@ -1,6 +1,6 @@
 # Road2Filter
 
-**滤波器设计之路**（The road to filter-design），本仓库旨在记录笔者学习和探索的过程，为广大非数字信号处理爱好者提供非专业的、挂一漏万的、参差不齐的技术入门指导。
+**滤波器设计之路**（The road to filter-design），本仓库旨在记录笔者学习和探索的过程，为广大非数字信号处理爱好者提供非专业的、挂一漏万的、顾此失彼的技术入门指导。
 
 ### 缘起
 
@@ -11,6 +11,8 @@
 ### 写在不太前面
 
 本文中包含有些许 Mathjax 公式，由于 Github 官方不支持此类公式渲染，公式显示略显凌乱，幸于 Github 网友用爱发电，针对 Chrome 和 Firefox 浏览器，分别安装 [MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima)（[Github 仓库](https://github.com/orsharir/github-mathjax)） 和 [github-mathjax-firefox](https://github.com/traversaro/github-mathjax-firefox/releases/download/v0.2.3/github_with_mathjax-0.2.3.xpi)（[Github 仓库](https://github.com/traversaro/github-mathjax-firefox)）插件即可查看完美显示的公式了。
+
+---
 
 ### 了不起的滤波器
 
@@ -24,7 +26,7 @@
 
 关于 FIR 滤波器的认识，大都来自于 [Tom Roelandts 的个人博客](https://tomroelandts.com)网站，在[这里](https://tchel.github.io/2019/06/24/Create-a-Filter/)我对他的博文作了总结翻译，并在文末展示了一个应用示例。从学习的角度来讲，顺着我的博文（按照从[低通](https://tomroelandts.com/articles/how-to-create-a-simple-low-pass-filter)、[高通](https://tomroelandts.com/articles/how-to-create-a-simple-high-pass-filter)到[带通带阻](https://tomroelandts.com/articles/how-to-create-simple-band-pass-and-band-reject-filters)的顺序）即可了解 FIR 滤波器的原理，并学会简单的 FIR 滤波器设计。
 
-FIR 滤波器采用褶积运算，对信号的频谱加窗，以实现滤波的目的。据此，可以采用 [sinc 函数](https://tomroelandts.com/articles/how-to-create-a-simple-low-pass-filter)设计出一个简单的低通滤波器。通过[频谱反转](https://tomroelandts.com/articles/how-to-create-a-simple-high-pass-filter)，将低通滤波器转化为一个高通滤波器。低通和高通滤波器的[组合构造](https://tomroelandts.com/articles/how-to-create-simple-band-pass-and-band-reject-filters)，就形成了带通和带阻滤波器。
+FIR 滤波器采用褶积运算，对信号的频谱加窗，以实现滤波的目的。据此，可以采用 [sinc 函数](https://tomroelandts.com/articles/how-to-create-a-simple-low-pass-filter)设计出一个简单的低通滤波器。通过[频谱反转](https://tomroelandts.com/articles/how-to-create-a-simple-high-pass-filter)，将低通滤波器转化为一个高通滤波器。低通和高通滤波器的[组合构造](https://tomroelandts.com/articles/how-to-create-simple-band-pass-and-band-reject-filters)，就构造出了带通和带阻滤波器。
 
 ### 如此神奇的 IIR
 
@@ -69,6 +71,8 @@ $B_n(s) = \prod_{k = 1}^{\frac{n}{2}} \Big[ s^2 - 2s \cos \Big( \frac{2k + n - 1
 $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \frac{2k + n - 1}{2n} \pi \Big) + 1 \Big]$, for $n$ is odd.
 
 由此传输函数即可得到相应的差分方程，进而实现 IIR 滤波器的设计。
+
+---
 
 ### 实践里头出真知
 
