@@ -92,7 +92,7 @@ $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \fra
 
 ![bandPassFIR](figure/bandPassFIR.png)
 
-在[带阻滤波器示例](FIR/bsFIR.py)中，原始波形由频率为 2 Hz、6 Hz 和 10 Hz 的正弦波叠加合成，分别以 4 Hz 和 6 Hz 为下截止和上截止频率进行带通滤波的效果如下图所示：
+在[带阻滤波器示例](FIR/bsFIR.py)中，原始波形由频率为 2 Hz、6 Hz 和 10 Hz 的正弦波叠加合成，分别以 4 Hz 和 6 Hz 为下截止和上截止频率进行带阻滤波的效果如下图所示：
 
 ![bandStopFIR](figure/bandStopFIR.png)
 
