@@ -18,7 +18,7 @@
 
 之所以了不起，是因为信号处理涉及的领域太广了，而滤波几乎又是信号处理的第一需求。滤波器主要有模拟滤波器和数字滤波器之分，前者用于电子电路设计，后者用于数字信号处理。数字滤波器又可以分为 FIR（Finite impulse response，有限脉冲响应）滤波器和 IIR（Infinite impulse response，无限脉冲响应）滤波器。
 
-根据 [Wikipedia](https://en.wikipedia.org/wiki/Filter_design)，**FIR 滤波器**将输出表示为输入的 N 个采样点的加权和（N 为滤波器的阶数）。FIR 滤波器通常是非递归的，不采用反馈机制，本质上是稳定的。而滑动平均滤波是一种递归的采用反馈机制的 FIR 滤波器。如果 FIR 滤波器的系数是对称的，它就具有线性相位，对所有的频率具有相同的延迟。与巧妙设计的 IIR 滤波器相比，_FIR 滤波器更易于设计，但同时也需要更多的计算步骤和内存资源_。**IIR 滤波器**更类似于一个模拟滤波器，它采用当前输入、先前输入和先前输出的线性组合来确定当前输出（即采用反馈机制），理论上这种滤波器的脉冲响应是无限的（即 IIR）。但也由于反馈，高阶 IIR 滤波器不太稳定，存在算术溢出等问题。_由于相移与频率的非线性关系，本质上 IIR 滤波器的时间延迟是频率相关的_，这在许多情况下是不能接受的。
+根据 [Wikipedia](https://en.wikipedia.org/wiki/Filter_design)，**FIR 滤波器**将输出表示为输入的 N 个采样点的加权和（N 为滤波器的阶数）。FIR 滤波器通常是非递归的，不采用反馈机制，本质上是稳定的。而滑动平均滤波是一种递归的采用反馈机制的 FIR 滤波器。如果 FIR 滤波器的系数是对称的，它就具有线性相位，对所有的频率具有相同的延迟。与巧妙设计的 IIR 滤波器相比，_FIR 滤波器更易于设计，但同时也需要更多的计算步骤和内存资源_。**IIR 滤波器**更类似于一个模拟滤波器，它采用当前输入、先前输入和先前输出的线性组合来确定当前输出（即采用反馈机制），理论上这种滤波器的脉冲响应是无限的（即 Infinite Impulse Response）。但也由于反馈，高阶 IIR 滤波器不太稳定，存在算术溢出等问题。_由于相移与频率的非线性关系，本质上 IIR 滤波器的时间延迟是频率相关的_，这在许多情况下是不能接受的。
 
 根据 [Wikipedia](https://en.wikipedia.org/wiki/Recursive_filter)，递归型滤波器即使用先前输出作为输入的一种滤波器，这种反馈机制容易但不一定（如滑动平均滤波器）产生一个无限脉冲响应（即 IIR）。非递归型滤波器如：$y[n] = 0.5 x[n - 1] + 0.5 x[n]$；递归型滤波器如：$y[n] = 0.5 y[n - 1] + 0.5 x[n]$。
 
@@ -70,7 +70,7 @@ $B_n(s) = \prod_{k = 1}^{\frac{n}{2}} \Big[ s^2 - 2s \cos \Big( \frac{2k + n - 1
 
 $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \frac{2k + n - 1}{2n} \pi \Big) + 1 \Big]$, for $n$ is odd.
 
-由此传输函数即可得到相应的差分方程，进而实现 IIR 滤波器的设计。
+由此传输函数即可得到相应的差分方程，进而实现 Butterworth 低通滤波器的设计。
 
 ---
 
@@ -104,7 +104,7 @@ $B_n(s) = (s + 1) \prod_{k = 1}^{\frac{n - 1}{2}} \Big[ s^2 - 2s \cos \Big( \fra
 
 本仓库 [sigproc 目录](sigproc/)中存有 [Stefan](http://www.exstrom.com/stefan/stefan.html) 和 [Richard](http://www.exstrom.com/richard/richard.html) 编写的数字信号处理程序集（包括 Butterworth 滤波、Chebyshev 滤波等），[此页面](http://www.exstrom.com/journal/sigproc/)有其中各个程序的详细说明。此外，在 [siggen 目录](siggen/)中存有这两位编写的数字信号生成程序集（包括锯齿波、正弦波、随机噪声等），[此页面](http://www.exstrom.com/siggen/index.html)有其中各个程序的详细说明。使用命令 `make -C sigproc/ ; make -C siggen/` 即可完成这两套程序集的编译。
 
-[IIR/o4zpsbwlpf.c](IIR/o4zpsbwlpf.c) 是根据 [Darryl Bryk](https://www.codeproject.com/script/Membership/View.aspx?mid=4882725) 编写的 [C# 滤波程序](https://www.codeproject.com/Tips/1092012/A-Butterworth-Filter-in-Csharp)翻译而来四阶零相移 Butterworth 低通滤波程序。使用命令 `gcc IIR/o4zpsbwlpf.c -lm -o bin/zpsbwlpf` 即可完成程序的编译。
+[IIR/o4zpsbwlpf.c](IIR/o4zpsbwlpf.c) 是根据 [Darryl Bryk](https://www.codeproject.com/script/Membership/View.aspx?mid=4882725) 编写的 [C# 滤波程序](https://www.codeproject.com/Tips/1092012/A-Butterworth-Filter-in-Csharp)翻译而来的四阶零相移 Butterworth 低通滤波程序。使用命令 `gcc IIR/o4zpsbwlpf.c -lm -o bin/zpsbwlpf` 即可完成程序的编译。
 
 在编译完成后，我们可以通过 [IIR 目录](IIR/)下的 Python 脚本调用这些可执行文件进行滤波。
 
